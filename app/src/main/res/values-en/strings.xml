@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wadb_title">Wireless ADB AutoStart</string>
+    <string name="wadb_description">Enables wireless ADB after unlock: TLS with a random port or TCP with a fixed port; choose a mode and copy the address</string>
+
+    <string name="wadb_subtitle">Wireless debugging</string>
+    <string name="status_section_title">Current status</string>
+    <string name="status_connected">Connection ready</string>
+    <string name="status_waiting_connection">Waiting for connection</string>
+    <string name="notice_ready">Ready</string>
+    <string name="notice_waiting_module">Waiting for module</string>
+    <string name="notice_apply_requested">Apply requested</string>
+    <string name="notice_address_copied">Address copied</string>
+    <string name="notice_log_refreshed">Logs updated</string>
+    <string name="notice_copy_requested">Copy requested</string>
+
+    <string name="mode_section_title">Current mode</string>
+    <string name="mode_tls_current">TLS wireless debugging (random port)</string>
+    <string name="mode_tcp_current">TCP fixed port (%1$d)</string>
+    <string name="mode_tcp_default">TCP fixed port (5555)</string>
+    <string name="mode_tls_option">Use TLS mode</string>
+    <string name="mode_tcp_option">Use TCP fixed port</string>
+    <string name="tcp_port_label">TCP port</string>
+    <string name="tcp_port_hint">5555</string>
+    <string name="tcp_port_invalid">Invalid port. Enter a value from 1 to 65535</string>
+    <string name="notice_tls_applied">TLS mode applied</string>
+    <string name="notice_tcp_applied">TCP port %1$d applied</string>
+
+    <string name="address_section_title">Connection address</string>
+    <string name="address_waiting">Waiting for address…</string>
+
+    <string name="log_section_title">Run history</string>
+    <string name="log_section_subtitle">Notes from this connection</string>
+    <string name="log_badge">LOG</string>
+    <string name="log_empty_title">No records</string>
+    <string name="log_empty_message">Records will appear here after applying or refreshing</string>
+
+    <string name="action_apply">Apply now</string>
+    <string name="action_copy">Copy address</string>
+    <string name="action_refresh">Refresh logs</string>
+    <string name="action_copied">Copied</string>
+
+    <string name="language_section_title">Language</string>
+    <string name="language_system">Use system language</string>
+    <string name="language_pt_br">Português (Brasil)</string>
+    <string name="language_en">English</string>
+    <string name="language_es">Español</string>
+    <string name="language_zh">中文</string>
+    <string-array name="language_options">
+        <item>@string/language_system</item>
+        <item>@string/language_pt_br</item>
+        <item>@string/language_en</item>
+        <item>@string/language_es</item>
+        <item>@string/language_zh</item>
+    </string-array>
+
+    <string name="log_context_failed_prefix">Failed to get system context: </string>
+    <string name="log_apply_reason">Apply requested from the interface</string>
+    <string name="log_mode_switch_prefix">Mode changed → </string>
+    <string name="log_mode_switch_reason">mode change</string>
+    <string name="log_port_separator">, port </string>
+    <string name="log_mode_saved">Mode saved; it will take effect after unlock</string>
+    <string name="log_current_mode_prefix">Current mode: </string>
+    <string name="log_config_failed_prefix">Failed to read configuration: </string>
+    <string name="log_wetype_started">WeType process detected</string>
+    <string name="log_user_unlocked_event">USER_UNLOCKED received</string>
+    <string name="log_system_unlocked">System unlocked</string>
+    <string name="log_initial_unlock">initial unlock</string>
+    <string name="log_system_waiting_unlock">System started; waiting for the first unlock</string>
+    <string name="log_unlock_failed_prefix">Failed to monitor unlock: </string>
+    <string name="log_keep_adb_separator">; keeping ADB (</string>
+    <string name="log_wifi_switch_enabled">Switch turned on</string>
+    <string name="log_wireless_disabled">Wireless debugging was turned off; preparing to enable it again</string>
+    <string name="log_wifi_observer_registered">adb_wifi_enabled observer registered (TLS mode only)</string>
+    <string name="log_wifi_observer_failed_prefix">Failed to register the wireless debugging observer: </string>
+    <string name="log_connectivity_unavailable">ConnectivityManager unavailable</string>
+    <string name="log_wifi_available_prefix">Wi-Fi available; checking ADB (</string>
+    <string name="log_wifi_restored">Wi-Fi restored</string>
+    <string name="log_wifi_disconnected">Wi-Fi disconnected; waiting for it to return before keeping ADB</string>
+    <string name="log_wifi_callback_registered">Wi-Fi network callback registered</string>
+    <string name="log_wifi_callback_failed_prefix">Failed to register the Wi-Fi callback: </string>
+    <string name="log_screen_check">Screen-on check</string>
+    <string name="log_screen_registered">Screen-on check registered</string>
+    <string name="log_screen_failed_prefix">Failed to register the screen-on check: </string>
+    <string name="log_skip_cooldown_prefix">Duplicate enable skipped (cooldown; reason: </string>
+    <string name="log_enable_in_progress_prefix">Enable already in progress; skipped: </string>
+    <string name="log_enable_failed_prefix">Failed to enable ADB: </string>
+    <string name="log_tls_cleared_prefix">TLS mode: cleared service.adb.tcp.port (previous value: </string>
+    <string name="log_switch_to_tls">Switching back to TLS</string>
+    <string name="log_tcp_clear_failed_prefix">Error clearing TCP port (can be ignored): </string>
+    <string name="log_tls_requested">Wireless debugging TLS enable requested</string>
+    <string name="log_tls_unchanged">Wireless debugging setting did not change (it may already be enabled)</string>
+    <string name="log_reason_separator">, reason: </string>
+    <string name="log_tcp_set_prefix">Set </string>
+    <string name="log_tcp_mode">TCP mode</string>
+    <string name="log_restart_requested_prefix">adbd restart requested (</string>
+    <string name="log_restart_failed_prefix">Failed to restart adbd: </string>
+    <string name="log_second_confirmation">second confirmation</string>
+    <string name="log_waiting_address_prefix">Waiting for address (</string>
+    <string name="log_attempt_separator">, attempt </string>
+    <string name="log_tcp_poll_retry">TCP polling retry</string>
+    <string name="log_address_failed_prefix">Failed to get address (</string>
+    <string name="log_manual_copy">Manual/forced copy</string>
+    <string name="log_wetype_running">WeType is already running</string>
+    <string name="log_address_ready_prefix">Wireless ADB address ready; waiting for WeType before copying: </string>
+    <string name="log_paste_wait">; waiting 3 seconds to initialize the cross-device paste service</string>
+    <string name="log_system_properties_unavailable">SystemProperties unavailable</string>
+    <string name="log_clipboard_unavailable">Clipboard service unavailable</string>
+    <string name="log_address_copied_prefix">Wireless ADB address copied: </string>
+    <string name="log_copy_failed_prefix">Failed to copy address: </string>
+    <string name="log_mode_word">mode</string>
+    <string name="log_port_word">port</string>
+    <string name="log_mode_tls">TLS wireless debugging (random port)</string>
+    <string name="log_mode_tcp">TCP fixed port</string>
+    <string name="log_wireless_address">wireless ADB address</string>
+    <string name="log_command_receivers_ready">Command receivers ready (copy / set mode / apply)</string>
+    <string name="log_command_receiver_failed_prefix">Command receiver failed: </string>
+    <string name="log_manual_copy_failed_prefix">Manual copy failed: </string>
+    <string name="log_manual_copy_requested_prefix">Manual copy requested (immediate): </string>
+</resources>

@@ -1,13 +1,17 @@
 package dev.wirelessadb.autostart;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +24,8 @@ import java.util.regex.Pattern;
 
 public final class StatusActivity extends Activity {
     private static final int LOG_PREVIEW_LINES = 6;
+    private static final float ADDRESS_MAX_TEXT_SP = 24f;
+    private static final float ADDRESS_MIN_TEXT_SP = 14f;
     private static final Pattern ADDRESS_IN_LOG =
             Pattern.compile("(\\d{1,3}(?:\\.\\d{1,3}){3}:\\d{1,5})");
 
@@ -28,6 +34,7 @@ public final class StatusActivity extends Activity {
     private TextView modeLabel;
     private TextView addressView;
     private EditText portInput;
+    private Spinner languageSpinner;
     private View modeTlsBtn;
     private View modeTcpBtn;
     private View modeTlsShadow;
@@ -45,13 +52,17 @@ public final class StatusActivity extends Activity {
     private TextView copyLabel;
     private boolean copiedFlash;
 
+    @Override protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LanguageConfig.wrap(newBase));
+    }
+
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_status);
         applySystemInsets();
         bindViews();
         wireActions();
-        refreshAll("已准备就绪");
+        refreshAll(getString(R.string.notice_ready));
     }
 
     /** 避开状态栏 / 导航栏，避免标题卡和系统栏重叠。 */
@@ -79,6 +90,7 @@ public final class StatusActivity extends Activity {
         modeLabel = findViewById(R.id.mode_label);
         addressView = findViewById(R.id.address_view);
         portInput = findViewById(R.id.port_input);
+        languageSpinner = findViewById(R.id.language_spinner);
         modeTlsBtn = findViewById(R.id.mode_tls_btn);
         modeTcpBtn = findViewById(R.id.mode_tcp_btn);
         modeTlsShadow = findViewById(R.id.mode_tls_shadow);
@@ -96,20 +108,21 @@ public final class StatusActivity extends Activity {
         View applyRoot = findViewById(R.id.action_apply);
         View copyRoot = findViewById(R.id.action_copy);
         View refreshRoot = findViewById(R.id.action_refresh);
-        setupAction(applyRoot, R.drawable.ic_check_cyan, "立即应用", v -> {
+        setupAction(applyRoot, R.drawable.ic_check_cyan, getString(R.string.action_apply), v -> {
             sendBroadcast(new Intent("dev.wirelessadb.autostart.APPLY").setPackage("android"));
-            setNotice("已请求立即应用");
-            Toast.makeText(this, "已请求立即应用", Toast.LENGTH_SHORT).show();
-            portInput.postDelayed(() -> refreshAll("记录已刷新"), 1500);
+            setNotice(getString(R.string.notice_apply_requested));
+            Toast.makeText(this, R.string.notice_apply_requested, Toast.LENGTH_SHORT).show();
+            portInput.postDelayed(() -> refreshAll(getString(R.string.notice_log_refreshed)), 1500);
         });
-        setupAction(copyRoot, R.drawable.ic_copy, "复制地址", v -> {
+        setupAction(copyRoot, R.drawable.ic_copy, getString(R.string.action_copy), v -> {
             sendBroadcast(new Intent("dev.wirelessadb.autostart.REQUEST_COPY").setPackage("android"));
             flashCopied();
-            setNotice("地址已复制");
-            Toast.makeText(this, "已请求立即复制", Toast.LENGTH_SHORT).show();
+            setNotice(getString(R.string.notice_address_copied));
+            Toast.makeText(this, R.string.notice_copy_requested, Toast.LENGTH_SHORT).show();
             portInput.postDelayed(() -> refreshAll(null), 1200);
         });
-        setupAction(refreshRoot, R.drawable.ic_refresh, "刷新记录", v -> refreshAll("记录已刷新"));
+        setupAction(refreshRoot, R.drawable.ic_refresh, getString(R.string.action_refresh),
+                v -> refreshAll(getString(R.string.notice_log_refreshed)));
 
         copyIcon = copyRoot.findViewById(R.id.action_icon);
         copyLabel = copyRoot.findViewById(R.id.action_label);
@@ -133,6 +146,22 @@ public final class StatusActivity extends Activity {
         modeTlsBtn.setOnClickListener(v -> switchMode(AdbModeConfig.MODE_TLS));
         modeTcpBtn.setOnClickListener(v -> switchMode(AdbModeConfig.MODE_TCP));
         portInput.setText(String.valueOf(AdbModeConfig.getTcpPort(this)));
+
+        final String currentLanguage = LanguageConfig.getLanguage(this);
+        final boolean[] ready = {false};
+        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!ready[0]) return;
+                String language = LanguageConfig.languageAt(position);
+                if (language.equals(LanguageConfig.getLanguage(StatusActivity.this))) return;
+                LanguageConfig.setLanguage(StatusActivity.this, language);
+                recreate();
+            }
+
+            @Override public void onNothingSelected(AdapterView<?> parent) { }
+        });
+        languageSpinner.setSelection(LanguageConfig.positionFor(currentLanguage), false);
+        ready[0] = true;
     }
 
     private void switchMode(String mode) {
@@ -144,7 +173,7 @@ public final class StatusActivity extends Activity {
                 port = AdbModeConfig.DEFAULT_TCP_PORT;
             }
             if (port < 1 || port > 65535) {
-                Toast.makeText(this, "端口无效，请输入 1–65535", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.tcp_port_invalid, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -154,8 +183,8 @@ public final class StatusActivity extends Activity {
                 .putExtra("mode", mode)
                 .putExtra("port", port));
         String notice = AdbModeConfig.MODE_TLS.equals(mode)
-                ? "TLS 模式已应用"
-                : ("TCP 端口 " + port + " 已应用");
+                ? getString(R.string.notice_tls_applied)
+                : getString(R.string.notice_tcp_applied, port);
         refreshAll(notice);
         Toast.makeText(this, notice, Toast.LENGTH_SHORT).show();
         portInput.postDelayed(() -> refreshAll(null), 1500);
@@ -167,8 +196,8 @@ public final class StatusActivity extends Activity {
         portInput.setText(String.valueOf(port));
         updateModeButtons(mode);
         modeLabel.setText(AdbModeConfig.MODE_TLS.equals(mode)
-                ? "TLS 无线调试（随机端口）"
-                : ("TCP 固定端口（" + port + "）"));
+                ? getString(R.string.mode_tls_current)
+                : getString(R.string.mode_tcp_current, port));
 
         String log = readLog();
         String preview = recentLogLines(log, LOG_PREVIEW_LINES);
@@ -184,13 +213,40 @@ public final class StatusActivity extends Activity {
         }
 
         String address = resolveAddress(mode, port, log);
-        addressView.setText(address == null ? "等待地址…" : address);
+        setAddressText(address);
         boolean ready = address != null;
-        statusTitle.setText(ready ? "连接已就绪" : "等待连接");
+        statusTitle.setText(ready ? R.string.status_connected : R.string.status_waiting_connection);
         if (noticeOverride != null) {
             setNotice(noticeOverride);
         } else if (!copiedFlash) {
-            setNotice(ready ? "已准备就绪" : "等待模块生效");
+            setNotice(ready ? getString(R.string.notice_ready) : getString(R.string.notice_waiting_module));
+        }
+    }
+
+    private void setAddressText(String address) {
+        String text = address == null ? getString(R.string.address_waiting) : address;
+        addressView.setText(text);
+        addressView.setMaxLines(1);
+        addressView.setTextSize(TypedValue.COMPLEX_UNIT_SP, ADDRESS_MAX_TEXT_SP);
+        addressView.post(() -> fitAddressText(text));
+    }
+
+    private void fitAddressText(String text) {
+        int availableWidth = addressView.getWidth()
+                - addressView.getPaddingLeft() - addressView.getPaddingRight();
+        if (availableWidth <= 0) return;
+
+        addressView.setMaxLines(1);
+        addressView.setTextSize(TypedValue.COMPLEX_UNIT_SP, ADDRESS_MAX_TEXT_SP);
+        float measuredWidth = addressView.getPaint().measureText(text);
+        float scale = measuredWidth <= 0f ? ADDRESS_MAX_TEXT_SP
+                : ADDRESS_MAX_TEXT_SP * availableWidth / measuredWidth;
+        if (scale >= ADDRESS_MIN_TEXT_SP) {
+            addressView.setTextSize(TypedValue.COMPLEX_UNIT_SP,
+                    Math.min(ADDRESS_MAX_TEXT_SP, scale));
+        } else {
+            addressView.setTextSize(TypedValue.COMPLEX_UNIT_SP, ADDRESS_MIN_TEXT_SP);
+            addressView.setMaxLines(2);
         }
     }
 
@@ -215,11 +271,11 @@ public final class StatusActivity extends Activity {
     private void flashCopied() {
         copiedFlash = true;
         copyIcon.setImageResource(R.drawable.ic_check_cyan);
-        copyLabel.setText("已复制");
+        copyLabel.setText(R.string.action_copied);
         copyLabel.postDelayed(() -> {
             copiedFlash = false;
             copyIcon.setImageResource(R.drawable.ic_copy);
-            copyLabel.setText("复制地址");
+            copyLabel.setText(R.string.action_copy);
         }, 1600);
     }
 
@@ -228,7 +284,7 @@ public final class StatusActivity extends Activity {
     }
 
     /** 只展示最近几条，倒序（最新在上）。 */
-    private static String recentLogLines(String log, int limit) {
+    private String recentLogLines(String log, int limit) {
         if (log == null || log.isEmpty() || limit <= 0) return "";
         String[] lines = log.split("\n", -1);
         int end = lines.length;
@@ -239,7 +295,7 @@ public final class StatusActivity extends Activity {
         for (int i = end - 1; i >= start; i--) {
             if (lines[i].trim().isEmpty()) continue;
             if (out.length() > 0) out.append('\n');
-            out.append(lines[i]);
+            out.append(LogLocalizer.localize(this, lines[i]));
         }
         return out.toString();
     }

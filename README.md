@@ -1,5 +1,7 @@
 # WirelessAdb-LSPosed
 
+**语言 / Idioma / Language:** [简体中文](README.md) · [Português (Brasil)](README.pt-BR.md) · [English](README.en.md) · [Español](README.es.md)
+
 **LSPosed 模块**：开机首次解锁后自动开启无线 ADB，并在状态页查看地址与日志。
 
 包名：`dev.wirelessadb.autostart`  

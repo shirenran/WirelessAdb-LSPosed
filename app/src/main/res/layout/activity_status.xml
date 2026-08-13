@@ -95,15 +95,22 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical"
                         android:paddingEnd="100dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="11sp"
+                            android:autoSizeMinTextSize="8sp"
+                            android:autoSizeStepGranularity="0.5sp"
+                            android:autoSizeTextType="uniform"
                             android:letterSpacing="0.18"
-                            android:text="无线调试工具"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="@string/wadb_subtitle"
                             android:textColor="@color/wadb_pink_soft"
                             android:textSize="11sp"
                             android:textStyle="bold" />
@@ -113,8 +120,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:maxLines="1"
-                            android:singleLine="true"
+                            android:autoSizeMaxTextSize="26sp"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
+                            android:maxLines="2"
                             android:text="@string/wadb_title"
                             android:textColor="@color/wadb_title"
                             android:textSize="26sp"
@@ -170,7 +180,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.16"
-                            android:text="当前状态"
+                            android:text="@string/status_section_title"
                             android:textColor="@color/wadb_pink_soft"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -202,7 +212,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:text="连接已就绪"
+                                android:text="@string/status_connected"
                                 android:textColor="@color/wadb_fg"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -215,11 +225,14 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_notice_chip"
+                            android:ellipsize="end"
+                            android:maxWidth="160dp"
+                            android:maxLines="1"
                             android:paddingStart="12dp"
                             android:paddingTop="4dp"
                             android:paddingEnd="12dp"
                             android:paddingBottom="4dp"
-                            android:text="已准备就绪"
+                            android:text="@string/notice_ready"
                             android:textColor="@color/wadb_cyan_text"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -239,7 +252,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="当前模式"
+                            android:text="@string/mode_section_title"
                             android:textColor="@color/wadb_muted"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -249,7 +262,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="TCP 固定端口（5555）"
+                            android:text="@string/mode_tcp_default"
                             android:textColor="@color/wadb_mode_text"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -284,7 +297,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:letterSpacing="0.14"
-                                android:text="连接地址"
+                                android:text="@string/address_section_title"
                                 android:textColor="@color/wadb_cyan_text"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -295,7 +308,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="monospace"
-                                android:text="等待地址…"
+                                android:maxLines="2"
+                                android:text="@string/address_waiting"
                                 android:textColor="@color/wadb_address"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -385,7 +399,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="使用 TLS 模式"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@string/mode_tls_option"
                         android:textColor="@color/wadb_ink"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -450,7 +467,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="使用 TCP 固定端口"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@string/mode_tcp_option"
                         android:textColor="@android:color/white"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -493,7 +513,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TCP 端口"
+                        android:text="@string/tcp_port_label"
                         android:textColor="@color/wadb_fg"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -507,7 +527,7 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="monospace"
                         android:gravity="end|center_vertical"
-                        android:hint="5555"
+                        android:hint="@string/tcp_port_hint"
                         android:inputType="number"
                         android:maxLength="5"
                         android:textColor="@color/wadb_fg"
@@ -521,6 +541,52 @@
                         android:layout_marginStart="8dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_settings" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Language -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:paddingEnd="3dp"
+                android:paddingBottom="4dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_mode_idle_shadow" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_mode_idle"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language_section_title"
+                        android:textColor="@color/wadb_fg"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/language_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:entries="@array/language_options"
+                        android:gravity="end|center_vertical"
+                        android:spinnerMode="dropdown" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -607,7 +673,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.16"
-                            android:text="运行记录"
+                            android:text="@string/log_section_title"
                             android:textColor="@color/wadb_pink_soft"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -617,7 +683,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/log_eyebrow"
                             android:layout_marginTop="4dp"
-                            android:text="本次连接的小纸条"
+                            android:text="@string/log_section_subtitle"
                             android:textColor="@color/wadb_muted3"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -633,7 +699,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="10dp"
                             android:paddingBottom="4dp"
-                            android:text="日志"
+                            android:text="@string/log_badge"
                             android:textColor="#837386"
                             android:textSize="10sp" />
                     </RelativeLayout>
@@ -688,17 +754,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
-                                android:text="暂无记录"
+                                android:text="@string/log_empty_title"
                                 android:textColor="@color/wadb_fg"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:gravity="center"
-                                android:text="应用或刷新后，连接记录会在这里出现"
+                                android:text="@string/log_empty_message"
                                 android:textColor="@color/wadb_muted2"
                                 android:textSize="12sp" />
                         </LinearLayout>

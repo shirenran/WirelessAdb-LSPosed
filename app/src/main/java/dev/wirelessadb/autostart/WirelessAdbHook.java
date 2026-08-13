@@ -556,7 +556,7 @@ public final class WirelessAdbHook implements IXposedHookLoadPackage {
     }
 
     private static void log(String message) {
-        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(new Date());
+        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT).format(new Date());
         String line = time + "  " + message;
         XposedBridge.log("WirelessAdbAutoStart: " + line);
         if (systemContext == null) return;

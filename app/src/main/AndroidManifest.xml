@@ -3,11 +3,12 @@
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
+        android:localeConfig="@xml/locales_config"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="无线 ADB 自启"
+        android:label="@string/wadb_title"
         android:theme="@style/AppTheme">
         <meta-data android:name="xposedmodule" android:value="true" />
-        <meta-data android:name="xposeddescription" android:value="解锁后开启无线 ADB：TLS 随机端口或 TCP 固定端口，可选模式并复制地址" />
+        <meta-data android:name="xposeddescription" android:value="@string/wadb_description" />
         <meta-data android:name="xposedminversion" android:value="82" />
         <meta-data android:name="xposedscope" android:value="android" />
 

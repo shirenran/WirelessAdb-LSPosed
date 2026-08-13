@@ -2,4 +2,121 @@
 <resources>
     <!-- 不换行空格，避免「无线 ADB 自启」被拆成多行 -->
     <string name="wadb_title">无线&#160;ADB&#160;自启</string>
+    <string name="wadb_description">解锁后开启无线 ADB：TLS 随机端口或 TCP 固定端口，可选模式并复制地址</string>
+
+    <string name="wadb_subtitle">无线调试工具</string>
+    <string name="status_section_title">当前状态</string>
+    <string name="status_connected">连接已就绪</string>
+    <string name="status_waiting_connection">等待连接</string>
+    <string name="notice_ready">已准备就绪</string>
+    <string name="notice_waiting_module">等待模块生效</string>
+    <string name="notice_apply_requested">已请求立即应用</string>
+    <string name="notice_address_copied">地址已复制</string>
+    <string name="notice_log_refreshed">记录已刷新</string>
+    <string name="notice_copy_requested">已请求立即复制</string>
+
+    <string name="mode_section_title">当前模式</string>
+    <string name="mode_tls_current">TLS 无线调试（随机端口）</string>
+    <string name="mode_tcp_current">TCP 固定端口（%1$d）</string>
+    <string name="mode_tcp_default">TCP 固定端口（5555）</string>
+    <string name="mode_tls_option">使用 TLS 模式</string>
+    <string name="mode_tcp_option">使用 TCP 固定端口</string>
+    <string name="tcp_port_label">TCP 端口</string>
+    <string name="tcp_port_hint">5555</string>
+    <string name="tcp_port_invalid">端口无效，请输入 1–65535</string>
+    <string name="notice_tls_applied">TLS 模式已应用</string>
+    <string name="notice_tcp_applied">TCP 端口 %1$d 已应用</string>
+
+    <string name="address_section_title">连接地址</string>
+    <string name="address_waiting">等待地址…</string>
+
+    <string name="log_section_title">运行记录</string>
+    <string name="log_section_subtitle">本次连接的小纸条</string>
+    <string name="log_badge">日志</string>
+    <string name="log_empty_title">暂无记录</string>
+    <string name="log_empty_message">应用或刷新后，连接记录会在这里出现</string>
+
+    <string name="action_apply">立即应用</string>
+    <string name="action_copy">复制地址</string>
+    <string name="action_refresh">刷新记录</string>
+    <string name="action_copied">已复制</string>
+
+    <string name="language_section_title">语言</string>
+    <string name="language_system">跟随系统语言</string>
+    <string name="language_pt_br">Português (Brasil)</string>
+    <string name="language_en">English</string>
+    <string name="language_es">Español</string>
+    <string name="language_zh">中文</string>
+    <string-array name="language_options">
+        <item>@string/language_system</item>
+        <item>@string/language_pt_br</item>
+        <item>@string/language_en</item>
+        <item>@string/language_es</item>
+        <item>@string/language_zh</item>
+    </string-array>
+
+    <!-- Log translations used when rendering legacy records written by the hook. -->
+    <string name="log_context_failed_prefix">获取系统上下文失败： </string>
+    <string name="log_apply_reason">界面请求立即应用</string>
+    <string name="log_mode_switch_prefix">切换模式 → </string>
+    <string name="log_mode_switch_reason">切换模式</string>
+    <string name="log_port_separator">，端口 </string>
+    <string name="log_mode_saved">模式已保存，解锁后生效</string>
+    <string name="log_current_mode_prefix">当前模式： </string>
+    <string name="log_config_failed_prefix">读取配置失败： </string>
+    <string name="log_wetype_started">检测到微信输入法进程启动</string>
+    <string name="log_user_unlocked_event">收到 USER_UNLOCKED</string>
+    <string name="log_system_unlocked">系统已解锁</string>
+    <string name="log_initial_unlock">首次解锁</string>
+    <string name="log_system_waiting_unlock">系统已启动，等待首次解锁</string>
+    <string name="log_unlock_failed_prefix">监听解锁失败： </string>
+    <string name="log_keep_adb_separator">，开始保持 ADB（</string>
+    <string name="log_wifi_switch_enabled">开关变为开启</string>
+    <string name="log_wireless_disabled">检测到无线调试被关闭，准备重新开启</string>
+    <string name="log_wifi_observer_registered">已注册 adb_wifi_enabled 监听（仅 TLS 模式生效）</string>
+    <string name="log_wifi_observer_failed_prefix">注册无线调试开关监听失败： </string>
+    <string name="log_connectivity_unavailable">ConnectivityManager 不可用</string>
+    <string name="log_wifi_available_prefix">Wi-Fi 可用，检查 ADB（</string>
+    <string name="log_wifi_restored">Wi-Fi 恢复</string>
+    <string name="log_wifi_disconnected">Wi-Fi 断开，等待恢复后再保持 ADB</string>
+    <string name="log_wifi_callback_registered">已注册 Wi-Fi 网络回调</string>
+    <string name="log_wifi_callback_failed_prefix">注册 Wi-Fi 回调失败： </string>
+    <string name="log_screen_check">亮屏检查</string>
+    <string name="log_screen_registered">已注册亮屏检查</string>
+    <string name="log_screen_failed_prefix">注册亮屏检查失败： </string>
+    <string name="log_skip_cooldown_prefix">跳过重复开启（冷却中，原因：</string>
+    <string name="log_enable_in_progress_prefix">开启进行中，跳过： </string>
+    <string name="log_enable_failed_prefix">开启 ADB 失败： </string>
+    <string name="log_tls_cleared_prefix">TLS 模式：已清除 service.adb.tcp.port（原 </string>
+    <string name="log_switch_to_tls">切回 TLS</string>
+    <string name="log_tcp_clear_failed_prefix">清除 TCP 端口时出错（可忽略）： </string>
+    <string name="log_tls_requested">已请求开启无线调试 TLS</string>
+    <string name="log_tls_unchanged">无线调试设置未变化（可能已经开启）</string>
+    <string name="log_reason_separator">，原因： </string>
+    <string name="log_tcp_set_prefix">已设置 </string>
+    <string name="log_tcp_mode">TCP 模式</string>
+    <string name="log_restart_requested_prefix">已请求重启 adbd（</string>
+    <string name="log_restart_failed_prefix">重启 adbd 失败： </string>
+    <string name="log_second_confirmation">二次确认</string>
+    <string name="log_waiting_address_prefix">等待地址就绪（</string>
+    <string name="log_attempt_separator">，第 </string>
+    <string name="log_tcp_poll_retry">TCP 轮询重试</string>
+    <string name="log_address_failed_prefix">获取地址失败（</string>
+    <string name="log_manual_copy">手动/强制复制</string>
+    <string name="log_wetype_running">微信输入法已经运行</string>
+    <string name="log_address_ready_prefix">无线 ADB 地址已就绪，等待微信输入法启动后复制：</string>
+    <string name="log_paste_wait">，等待 3 秒初始化跨设备粘贴服务</string>
+    <string name="log_system_properties_unavailable">SystemProperties 不可用</string>
+    <string name="log_clipboard_unavailable">剪贴板服务不可用</string>
+    <string name="log_address_copied_prefix">已复制无线 ADB 地址：</string>
+    <string name="log_copy_failed_prefix">复制地址失败： </string>
+    <string name="log_mode_word">模式</string>
+    <string name="log_port_word">端口</string>
+    <string name="log_mode_tls">TLS 无线调试（随机端口）</string>
+    <string name="log_mode_tcp">TCP 固定端口</string>
+    <string name="log_wireless_address">无线 ADB 地址</string>
+    <string name="log_command_receivers_ready">Command receivers ready (copy / set_mode / apply)</string>
+    <string name="log_command_receiver_failed_prefix">Command receiver failed: </string>
+    <string name="log_manual_copy_failed_prefix">Manual copy failed: </string>
+    <string name="log_manual_copy_requested_prefix">Manual copy requested (immediate): </string>
 </resources>

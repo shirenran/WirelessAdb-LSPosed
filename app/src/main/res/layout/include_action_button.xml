@@ -34,11 +34,14 @@
         <TextView
             android:id="@+id/action_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_marginTop="4dp"
-            android:text="立即应用"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/action_apply"
             android:textColor="@color/wadb_cyan_text"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>

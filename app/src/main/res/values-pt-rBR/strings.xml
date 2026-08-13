@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wadb_title">ADB sem fio automático</string>
+    <string name="wadb_description">Ativa o ADB sem fio após o desbloqueio: TLS com porta aleatória ou TCP com porta fixa; escolha o modo e copie o endereço</string>
+
+    <string name="wadb_subtitle">Depuração sem fio</string>
+    <string name="status_section_title">Status atual</string>
+    <string name="status_connected">Conexão pronta</string>
+    <string name="status_waiting_connection">Aguardando conexão</string>
+    <string name="notice_ready">Pronto</string>
+    <string name="notice_waiting_module">Aguardando módulo</string>
+    <string name="notice_apply_requested">Aplicação solicitada</string>
+    <string name="notice_address_copied">Endereço copiado</string>
+    <string name="notice_log_refreshed">Logs atualizados</string>
+    <string name="notice_copy_requested">Cópia solicitada</string>
+
+    <string name="mode_section_title">Modo atual</string>
+    <string name="mode_tls_current">Depuração sem fio TLS (porta aleatória)</string>
+    <string name="mode_tcp_current">TCP com porta fixa (%1$d)</string>
+    <string name="mode_tcp_default">TCP com porta fixa (5555)</string>
+    <string name="mode_tls_option">Usar modo TLS</string>
+    <string name="mode_tcp_option">Usar TCP com porta fixa</string>
+    <string name="tcp_port_label">Porta TCP</string>
+    <string name="tcp_port_hint">5555</string>
+    <string name="tcp_port_invalid">Porta inválida. Informe um valor entre 1 e 65535</string>
+    <string name="notice_tls_applied">Modo TLS aplicado</string>
+    <string name="notice_tcp_applied">Porta TCP %1$d aplicada</string>
+
+    <string name="address_section_title">Endereço de conexão</string>
+    <string name="address_waiting">Aguardando endereço…</string>
+
+    <string name="log_section_title">Registros de execução</string>
+    <string name="log_section_subtitle">Anotações desta conexão</string>
+    <string name="log_badge">LOG</string>
+    <string name="log_empty_title">Nenhum registro</string>
+    <string name="log_empty_message">Os registros aparecerão aqui após aplicar ou atualizar</string>
+
+    <string name="action_apply">Aplicar agora</string>
+    <string name="action_copy">Copiar endereço</string>
+    <string name="action_refresh">Atualizar registros</string>
+    <string name="action_copied">Copiado</string>
+
+    <string name="language_section_title">Idioma</string>
+    <string name="language_system">Usar idioma do sistema</string>
+    <string name="language_pt_br">Português (Brasil)</string>
+    <string name="language_en">English</string>
+    <string name="language_es">Español</string>
+    <string name="language_zh">中文</string>
+    <string-array name="language_options">
+        <item>@string/language_system</item>
+        <item>@string/language_pt_br</item>
+        <item>@string/language_en</item>
+        <item>@string/language_es</item>
+        <item>@string/language_zh</item>
+    </string-array>
+
+    <string name="log_context_failed_prefix">Falha ao obter o contexto do sistema: </string>
+    <string name="log_apply_reason">Aplicação solicitada pela interface</string>
+    <string name="log_mode_switch_prefix">Modo alterado → </string>
+    <string name="log_mode_switch_reason">troca de modo</string>
+    <string name="log_port_separator">, porta </string>
+    <string name="log_mode_saved">Modo salvo; será aplicado após o desbloqueio</string>
+    <string name="log_current_mode_prefix">Modo atual: </string>
+    <string name="log_config_failed_prefix">Falha ao ler a configuração: </string>
+    <string name="log_wetype_started">Processo do WeType detectado</string>
+    <string name="log_user_unlocked_event">USER_UNLOCKED recebido</string>
+    <string name="log_system_unlocked">Sistema desbloqueado</string>
+    <string name="log_initial_unlock">primeiro desbloqueio</string>
+    <string name="log_system_waiting_unlock">Sistema iniciado; aguardando o primeiro desbloqueio</string>
+    <string name="log_unlock_failed_prefix">Falha ao monitorar o desbloqueio: </string>
+    <string name="log_keep_adb_separator">; mantendo o ADB (</string>
+    <string name="log_wifi_switch_enabled">Chave ativada</string>
+    <string name="log_wireless_disabled">A depuração sem fio foi desativada; preparando reativação</string>
+    <string name="log_wifi_observer_registered">Monitor de adb_wifi_enabled registrado (somente no modo TLS)</string>
+    <string name="log_wifi_observer_failed_prefix">Falha ao registrar o monitor de depuração sem fio: </string>
+    <string name="log_connectivity_unavailable">ConnectivityManager indisponível</string>
+    <string name="log_wifi_available_prefix">Wi-Fi disponível; verificando o ADB (</string>
+    <string name="log_wifi_restored">Wi-Fi restaurado</string>
+    <string name="log_wifi_disconnected">Wi-Fi desconectado; aguardando a reconexão para manter o ADB</string>
+    <string name="log_wifi_callback_registered">Callback da rede Wi-Fi registrado</string>
+    <string name="log_wifi_callback_failed_prefix">Falha ao registrar o callback do Wi-Fi: </string>
+    <string name="log_screen_check">Verificação ao acender a tela</string>
+    <string name="log_screen_registered">Verificação ao acender a tela registrada</string>
+    <string name="log_screen_failed_prefix">Falha ao registrar a verificação da tela: </string>
+    <string name="log_skip_cooldown_prefix">Ativação duplicada ignorada (em cooldown; motivo: </string>
+    <string name="log_enable_in_progress_prefix">Ativação em andamento; ignorando: </string>
+    <string name="log_enable_failed_prefix">Falha ao ativar o ADB: </string>
+    <string name="log_tls_cleared_prefix">Modo TLS: service.adb.tcp.port limpo (valor anterior: </string>
+    <string name="log_switch_to_tls">Voltando para TLS</string>
+    <string name="log_tcp_clear_failed_prefix">Erro ao limpar a porta TCP (pode ser ignorado): </string>
+    <string name="log_tls_requested">Ativação da depuração sem fio TLS solicitada</string>
+    <string name="log_tls_unchanged">A configuração de depuração sem fio não mudou (talvez já estivesse ativa)</string>
+    <string name="log_reason_separator">, motivo: </string>
+    <string name="log_tcp_set_prefix">Definido </string>
+    <string name="log_tcp_mode">Modo TCP</string>
+    <string name="log_restart_requested_prefix">Reinicialização do adbd solicitada (</string>
+    <string name="log_restart_failed_prefix">Falha ao reiniciar o adbd: </string>
+    <string name="log_second_confirmation">segunda confirmação</string>
+    <string name="log_waiting_address_prefix">Aguardando o endereço (</string>
+    <string name="log_attempt_separator">, tentativa </string>
+    <string name="log_tcp_poll_retry">Nova tentativa de consulta TCP</string>
+    <string name="log_address_failed_prefix">Falha ao obter o endereço (</string>
+    <string name="log_manual_copy">Cópia manual/forçada</string>
+    <string name="log_wetype_running">WeType já está em execução</string>
+    <string name="log_address_ready_prefix">Endereço ADB sem fio pronto; aguardando o WeType para copiar: </string>
+    <string name="log_paste_wait">; aguardando 3 segundos para inicializar o serviço de colagem entre dispositivos</string>
+    <string name="log_system_properties_unavailable">SystemProperties indisponível</string>
+    <string name="log_clipboard_unavailable">Serviço de área de transferência indisponível</string>
+    <string name="log_address_copied_prefix">Endereço ADB sem fio copiado: </string>
+    <string name="log_copy_failed_prefix">Falha ao copiar o endereço: </string>
+    <string name="log_mode_word">modo</string>
+    <string name="log_port_word">porta</string>
+    <string name="log_mode_tls">Depuração sem fio TLS (porta aleatória)</string>
+    <string name="log_mode_tcp">TCP com porta fixa</string>
+    <string name="log_wireless_address">endereço ADB sem fio</string>
+    <string name="log_command_receivers_ready">Receptores de comandos prontos (copiar / definir modo / aplicar)</string>
+    <string name="log_command_receiver_failed_prefix">Falha no receptor de comandos: </string>
+    <string name="log_manual_copy_failed_prefix">Falha na cópia manual: </string>
+    <string name="log_manual_copy_requested_prefix">Cópia manual solicitada (imediata): </string>
+</resources>
