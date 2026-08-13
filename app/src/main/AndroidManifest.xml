@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -24,6 +25,12 @@
         <provider
             android:name=".LogProvider"
             android:authorities="dev.wirelessadb.autostart.log"
+            android:directBootAware="true"
+            android:exported="true" />
+        <!-- The provider enforces that only system_server (UID 1000) may call it. -->
+        <provider
+            android:name=".RootCommandProvider"
+            android:authorities="dev.wirelessadb.autostart.root"
             android:directBootAware="true"
             android:exported="true" />
     </application>

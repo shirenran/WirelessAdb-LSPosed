@@ -3,6 +3,10 @@ package dev.wirelessadb.autostart;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -245,6 +249,23 @@ public final class StatusActivity extends Activity {
     }
 
     private String resolveAddress(String mode, int port, String log) {
+        String ip = findWifiIpv4();
+        if (AdbModeConfig.MODE_TCP.equals(mode)) {
+            if (ip != null) return ip + ":" + port;
+            String saved = EventLog.readLastAddress(this);
+            if (addressUsesPort(saved, port)) return saved;
+            if (log != null) {
+                Matcher matcher = ADDRESS_IN_LOG.matcher(log);
+                String last = null;
+                while (matcher.find()) {
+                    String candidate = matcher.group(1);
+                    if (addressUsesPort(candidate, port)) last = candidate;
+                }
+                if (last != null) return last;
+            }
+            return null;
+        }
+
         String saved = EventLog.readLastAddress(this);
         if (saved != null && !saved.isEmpty()) return saved;
         if (log != null) {
@@ -253,13 +274,27 @@ public final class StatusActivity extends Activity {
             while (m.find()) last = m.group(1);
             if (last != null) return last;
         }
-        String ip = findWifiIpv4();
         if (ip == null) return null;
-        if (AdbModeConfig.MODE_TCP.equals(mode)) return ip + ":" + port;
         return ip + ":?";
     }
 
-    private static String findWifiIpv4() {
+    private String findWifiIpv4() {
+        try {
+            ConnectivityManager connectivity = (ConnectivityManager)
+                    getSystemService(Context.CONNECTIVITY_SERVICE);
+            Network active = connectivity == null ? null : connectivity.getActiveNetwork();
+            LinkProperties properties = connectivity == null || active == null
+                    ? null : connectivity.getLinkProperties(active);
+            if (properties != null) {
+                for (LinkAddress linkAddress : properties.getLinkAddresses()) {
+                    InetAddress address = linkAddress.getAddress();
+                    if (address instanceof Inet4Address && !address.isLoopbackAddress()) {
+                        String host = address.getHostAddress();
+                        if (host != null && !host.startsWith("172.19.")) return host;
+                    }
+                }
+            }
+        } catch (Throwable ignored) { }
         try {
             for (NetworkInterface network : Collections.list(NetworkInterface.getNetworkInterfaces())) {
                 if (!network.isUp() || network.isLoopback()) continue;
@@ -275,5 +310,9 @@ public final class StatusActivity extends Activity {
             }
         } catch (Throwable ignored) { }
         return null;
+    }
+
+    private static boolean addressUsesPort(String address, int port) {
+        return address != null && address.endsWith(":" + port);
     }
 }
