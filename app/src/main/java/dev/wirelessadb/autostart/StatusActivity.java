@@ -97,13 +97,15 @@ public final class StatusActivity extends Activity {
         View copyRoot = findViewById(R.id.action_copy);
         View refreshRoot = findViewById(R.id.action_refresh);
         setupAction(applyRoot, R.drawable.ic_check_cyan, "立即应用", v -> {
-            sendBroadcast(new Intent("dev.wirelessadb.autostart.APPLY").setPackage("android"));
+            sendBroadcast(new Intent("dev.wirelessadb.autostart.APPLY").setPackage("android"),
+                    IpcContract.CONTROL_PERMISSION);
             setNotice("已请求立即应用");
             Toast.makeText(this, "已请求立即应用", Toast.LENGTH_SHORT).show();
             portInput.postDelayed(() -> refreshAll("记录已刷新"), 1500);
         });
         setupAction(copyRoot, R.drawable.ic_copy, "复制地址", v -> {
-            sendBroadcast(new Intent("dev.wirelessadb.autostart.REQUEST_COPY").setPackage("android"));
+            sendBroadcast(new Intent("dev.wirelessadb.autostart.REQUEST_COPY").setPackage("android"),
+                    IpcContract.CONTROL_PERMISSION);
             flashCopied();
             setNotice("地址已复制");
             Toast.makeText(this, "已请求立即复制", Toast.LENGTH_SHORT).show();
@@ -152,7 +154,7 @@ public final class StatusActivity extends Activity {
         sendBroadcast(new Intent("dev.wirelessadb.autostart.SET_MODE")
                 .setPackage("android")
                 .putExtra("mode", mode)
-                .putExtra("port", port));
+                .putExtra("port", port), IpcContract.CONTROL_PERMISSION);
         String notice = AdbModeConfig.MODE_TLS.equals(mode)
                 ? "TLS 模式已应用"
                 : ("TCP 端口 " + port + " 已应用");
