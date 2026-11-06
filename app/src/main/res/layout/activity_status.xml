@@ -561,6 +561,137 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
+            <!-- Active Clients -->
+            <FrameLayout
+                android:id="@+id/clients_card_shell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:clipToPadding="false"
+                android:paddingEnd="6dp"
+                android:paddingBottom="7dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_shadow_pink" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="20dp">
+
+                    <View
+                        android:layout_width="116dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="-10dp"
+                        android:layout_marginTop="-28dp"
+                        android:background="@drawable/bg_tape_cyan"
+                        android:rotation="-2" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/clients_eyebrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.16"
+                            android:text="连接监控"
+                            android:textColor="@color/wadb_pink_soft"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/clients_subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/clients_eyebrow"
+                            android:layout_marginTop="4dp"
+                            android:text="当前连入无线调试的设备"
+                            android:textColor="@color/wadb_muted3"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/clients_count_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_notice_chip"
+                            android:paddingStart="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="4dp"
+                            android:text="0 台在线"
+                            android:textColor="@color/wadb_cyan_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/clients_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_log_empty"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <FrameLayout
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_log_icon">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_link_idle" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="暂无外部连接"
+                            android:textColor="@color/wadb_fg"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/clients_empty_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="电脑执行 adb connect 连接后，客户端 IP 会实时显示在这里"
+                            android:textColor="@color/wadb_muted2"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/clients_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </FrameLayout>
+
             <!-- Log -->
             <FrameLayout
                 android:layout_width="match_parent"
