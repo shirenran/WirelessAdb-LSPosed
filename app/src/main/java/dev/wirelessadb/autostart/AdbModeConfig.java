@@ -67,7 +67,7 @@ public final class AdbModeConfig {
             prefs(context).edit()
                     .putString(KEY_MODE, normalized)
                     .putInt(KEY_TCP_PORT, port)
-                    .commit();
+                    .apply();
         } catch (Throwable ignored) { }
         try {
             Settings.Global.putString(context.getContentResolver(), GLOBAL_MODE, normalized);

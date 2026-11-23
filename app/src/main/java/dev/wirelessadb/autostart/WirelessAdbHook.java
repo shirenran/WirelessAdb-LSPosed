@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.database.ContentObserver;
 import android.net.ConnectivityManager;
@@ -14,6 +15,8 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.UserManager;
@@ -30,6 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -66,6 +70,10 @@ public final class WirelessAdbHook implements IXposedHookLoadPackage {
     private static int cachedTcpPort = AdbModeConfig.DEFAULT_TCP_PORT;
 
     @Override public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
+        if (MODULE_PACKAGE.equals(lpparam.packageName)) {
+            hookSelfActivation(lpparam.classLoader);
+            return;
+        }
         if (!"android".equals(lpparam.packageName) || !"android".equals(lpparam.processName)) return;
         handler = new Handler(Looper.getMainLooper());
         try {
@@ -86,12 +94,47 @@ public final class WirelessAdbHook implements IXposedHookLoadPackage {
         }
     }
 
+    /** Hooks ModuleStatus in our own app process so StatusActivity can verify LSPosed/Vector injection. */
+    private static void hookSelfActivation(ClassLoader classLoader) {
+        try {
+            Class<?> statusClass = XposedHelpers.findClass(
+                    "dev.wirelessadb.autostart.ModuleStatus", classLoader);
+            XposedHelpers.findAndHookMethod(
+                    statusClass, "isSelfHooked",
+                    XC_MethodReplacement.returnConstant(Boolean.TRUE));
+            XposedHelpers.findAndHookMethod(
+                    statusClass, "getXposedApiVersion",
+                    XC_MethodReplacement.returnConstant(XposedBridge.getXposedVersion()));
+        } catch (Throwable t) {
+            XposedBridge.log("WirelessAdbAutoStart self-activation hook failed: " + t);
+        }
+    }
+
     private static void registerCommandReceivers() {
         try {
             BroadcastReceiver receiver = new BroadcastReceiver() {
                 @Override public void onReceive(Context context, Intent intent) {
                     if (intent == null || intent.getAction() == null) return;
                     String action = intent.getAction();
+                    if (ModuleStatus.ACTION_PING.equals(action)) {
+                        if (isOrderedBroadcast()) {
+                            try {
+                                Bundle extras = new Bundle();
+                                extras.putString(ModuleStatus.EXTRA_PING_NONCE,
+                                        intent.getStringExtra(ModuleStatus.EXTRA_PING_NONCE));
+                                extras.putBoolean(ModuleStatus.EXTRA_HOOK_ARMED, armed);
+                                extras.putBoolean(ModuleStatus.EXTRA_USER_UNLOCKED, userUnlocked);
+                                extras.putInt(ModuleStatus.EXTRA_HOOK_VERSION,
+                                        ModuleStatus.HOOK_PROTOCOL_VERSION);
+                                extras.putString(ModuleStatus.EXTRA_MODE, cachedMode);
+                                extras.putInt(ModuleStatus.EXTRA_TCP_PORT, cachedTcpPort);
+                                extras.putInt(ModuleStatus.EXTRA_BOOT_COUNT,
+                                        ModuleStatus.readBootCount(systemContext));
+                                setResult(Activity.RESULT_OK, ModuleStatus.PING_PONG, extras);
+                            } catch (Throwable ignored) { }
+                        }
+                        return;
+                    }
                     handler.post(() -> {
                         if (ACTION_REQUEST_COPY.equals(action)) {
                             manualCopyAddress();
@@ -105,11 +148,17 @@ public final class WirelessAdbHook implements IXposedHookLoadPackage {
                 }
             };
             IntentFilter filter = new IntentFilter();
+            filter.addAction(ModuleStatus.ACTION_PING);
             filter.addAction(ACTION_REQUEST_COPY);
             filter.addAction(ACTION_SET_MODE);
             filter.addAction(ACTION_APPLY);
-            systemContext.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED);
-            log("Command receivers ready (copy / set_mode / apply)");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                systemContext.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED);
+            } else {
+                systemContext.registerReceiver(receiver, filter);
+            }
+            ModuleStatus.writeBootMarker(systemContext, ModuleStatus.HOOK_PROTOCOL_VERSION);
+            log("Command receivers ready (ping / copy / set_mode / apply)");
         } catch (Throwable t) {
             log("Command receiver failed: " + shortError(t));
         }

@@ -129,6 +129,101 @@
                 </FrameLayout>
             </FrameLayout>
 
+            <!-- Module Activation Alert (shown prominently when LSPosed/Vector hook is inactive) -->
+            <FrameLayout
+                android:id="@+id/module_alert_shell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                android:paddingEnd="6dp"
+                android:paddingBottom="7dp"
+                android:visibility="gone">
+
+                <View
+                    android:id="@+id/module_alert_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_alert_shadow" />
+
+                <LinearLayout
+                    android:id="@+id/module_alert_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_alert_card"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/module_alert_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/module_alert_badge"
+                            android:paddingEnd="8dp"
+                            android:text="模块未激活"
+                            android:textColor="@color/wadb_warn_title"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/module_alert_badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_alert_chip"
+                            android:paddingStart="10dp"
+                            android:paddingTop="3dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="3dp"
+                            android:text="未激活"
+                            android:textColor="@color/wadb_warn_title"
+                            android:textSize="11.5sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/module_alert_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@color/wadb_fg"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/module_alert_meta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/wadb_muted2"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/module_alert_recheck_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_alert_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="重新检测模块状态"
+                        android:textColor="@color/wadb_warn_title"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </FrameLayout>
+
             <!-- Status -->
             <FrameLayout
                 android:layout_width="match_parent"
@@ -185,6 +280,7 @@
                             android:orientation="horizontal">
 
                             <FrameLayout
+                                android:id="@+id/status_dot"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/bg_status_dot">
@@ -467,6 +563,7 @@
 
             <!-- Port -->
             <FrameLayout
+                android:id="@+id/port_shell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

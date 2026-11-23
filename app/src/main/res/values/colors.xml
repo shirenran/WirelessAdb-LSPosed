@@ -35,4 +35,14 @@
     <color name="wadb_mode_text">#3C425D</color>
     <color name="wadb_address">#2F3B57</color>
     <color name="wadb_status_bar">#FFF9EF</color>
+    <color name="wadb_warn_bg">#FFF1F4</color>
+    <color name="wadb_warn_border">#D9587F</color>
+    <color name="wadb_warn_title">#A32B52</color>
+    <color name="wadb_warn_badge_bg">#FFDCE5</color>
+    <color name="wadb_warn_shadow">#E6B7C5</color>
+    <color name="wadb_amber_bg">#FFF9E6</color>
+    <color name="wadb_amber_border">#C98A2E</color>
+    <color name="wadb_amber_title">#8C5810</color>
+    <color name="wadb_amber_badge_bg">#FFECB8</color>
+    <color name="wadb_amber_shadow">#E5CFA0</color>
 </resources>
